@@ -3,6 +3,9 @@ const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const app = express();
 app.use(cors()); // อนุญาตการร้องขอ HTTP ทั่วไป (เช่น การยิงทดสอบ API)
@@ -13,10 +16,7 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     // ใส่ลิงก์ localhost สำหรับรันเทสต์บนเครื่อง และเตรียมใส่ลิงก์ Vercel ตอนจะปล่อยของจริง
-    origin: [
-      "http://localhost:3000",
-      "https://webchat-frontend-mauve.vercel.app",
-    ],
+    origin: [process.env.FRONTEND_URI],
     methods: ["GET", "POST"],
   },
 });
@@ -89,7 +89,5 @@ io.on("connection", (socket) => {
 // ใช้พอร์ตที่แพลตฟอร์มคลาวด์ (Render) สุ่มจัดมาให้ผ่าน env หรือสลับใช้ 3001 ตอนรันบนเครื่องตัวเอง
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
-  console.log(
-    `🚀 [Backend Active] คอร์เซิร์ฟเวอร์เปิดใช้งานเรียบร้อยแล้วที่พอร์ต ${PORT}`,
-  );
+  console.log(`🚀 [Backend Active] Server running on port ${PORT}`);
 });
