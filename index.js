@@ -15,7 +15,7 @@ const io = new Server(server, {
     // ใส่ลิงก์ localhost สำหรับรันเทสต์บนเครื่อง และเตรียมใส่ลิงก์ Vercel ตอนจะปล่อยของจริง
     origin: [
       "http://localhost:3000",
-      "https://your-frontend-domain.vercel.app",
+      "https://webchat-frontend-mauve.vercel.app",
     ],
     methods: ["GET", "POST"],
   },
